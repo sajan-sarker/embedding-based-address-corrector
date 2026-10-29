@@ -1,0 +1,7 @@
+sentence-transformers==6.2.0
+chromadb==1.5.9
+python-dotenv==1.2.4
+PyYAML==6.0.3
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+ipykernel==7.4.0
