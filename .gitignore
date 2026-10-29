@@ -20,6 +20,9 @@ parts/
 sdist/
 var/
 wheels/
+chroma_db/
+frontend/node_modules/
+frontend/dist/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -51,6 +54,9 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+
+# Larger model file
+models/
 
 # Translations
 *.mo
