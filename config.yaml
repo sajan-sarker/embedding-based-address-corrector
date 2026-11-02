@@ -7,10 +7,10 @@ chroma_path: chroma_db        # [CHROMA_PATH]
 data_path: data/bangladesh_addresses_data.json  # [DATA_PATH] address records -> district, thana, post office collections
 
 correction:
-  n_results: 15               # [N_RESULTS] vector search candidates per field
-  padding: 3                  # [NGRAM_PADDING] extra characters in the n-gram sliding window
-  sliding_weight: 0.6         # [SLIDING_WEIGHT] final score = sliding_weight * sliding score
-  similarity_weight: 0.4      # [SIMILARITY_WEIGHT]            + similarity_weight * vector similarity
+  n_results: 30               # [N_RESULTS] vector search candidates per field
+  padding: 0                  # [NGRAM_PADDING] extra characters in the n-gram sliding window
+  sliding_weight: 0.3         # [SLIDING_WEIGHT] final score = sliding_weight * sliding score
+  similarity_weight: 0.7      # [SIMILARITY_WEIGHT]            + similarity_weight * vector similarity
 
 cors_origins:                 # [CORS_ORIGINS] comma-separated when set from the environment
   - http://localhost:5173
