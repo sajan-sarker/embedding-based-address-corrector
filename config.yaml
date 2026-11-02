@@ -1,62 +1,17 @@
-# Configuration for the embedding-based address corrector.
-# Relative paths are resolved from the project root.
-# Environment variables (also read from .env) override the matching setting, shown in brackets.
-
 embedding:
   model: BAAI/bge-m3          # [EMBEDDING_MODEL] model id, also part of the collection fingerprint
   model_path: models/bge-m3   # [EMBEDDING_MODEL_PATH] local copy, used when the folder exists
   device: null                # [EMBEDDING_DEVICE] e.g. cpu, cuda; null = auto
 
 chroma_path: chroma_db        # [CHROMA_PATH]
+data_path: data/bangladesh_addresses_data.json  # [DATA_PATH] address records -> district, thana, post office collections
 
 correction:
   n_results: 15               # [N_RESULTS] vector search candidates per field
   padding: 3                  # [NGRAM_PADDING] extra characters in the n-gram sliding window
+  sliding_weight: 0.6         # [SLIDING_WEIGHT] final score = sliding_weight * sliding score
+  similarity_weight: 0.4      # [SIMILARITY_WEIGHT]            + similarity_weight * vector similarity
 
 cors_origins:                 # [CORS_ORIGINS] comma-separated when set from the environment
   - http://localhost:5173
   - http://127.0.0.1:5173
-
-# One ChromaDB collection per field. `label` is the Bangla label used in addresses ("থানা: ...")
-# and in the stored documents; `values` are the correct reference names (duplicates are ignored).
-# Editing a list re-embeds that collection on the next startup.
-fields:
-  - collection: post_office
-    label: ডাকঘর
-    title: Post office
-    values: [
-      উত্তরা, মিরপুর, ধানমন্ডি, গুলশান, বনানী, মোহাম্মদপুর, তেজগাঁও, খিলগাঁও, রামপুরা, বাড্ডা, সদরঘাট, লালবাগ,
-      আজিমপুর, শ্যামলী, পল্লবী, আগারগাঁও, মালিবাগ, মগবাজার, যাত্রাবাড়ী, ডেমরা, কেরানীগঞ্জ, সাভার, আশুলিয়া,
-      গাজীপুর, টঙ্গী, নারায়ণগঞ্জ, নরসিংদী, মানিকগঞ্জ, মুন্সীগঞ্জ, মাদারীপুর, গোপালগঞ্জ, ফরিদপুর, রাজবাড়ী,
-      শরীয়তপুর, চট্টগ্রাম, কুমিল্লা, ফেনী, নোয়াখালী, লক্ষ্মীপুর, চাঁদপুর, সিলেট, মৌলভীবাজার, হবিগঞ্জ,
-      সুনামগঞ্জ, রাজশাহী, নাটোর, নওগাঁ, চাঁপাইনবাবগঞ্জ, পাবনা, সিরাজগঞ্জ, বগুড়া, জয়পুরহাট, রংপুর, দিনাজপুর,
-      ঠাকুরগাঁও, পঞ্চগড়, নীলফামারী, লালমনিরহাট, কুড়িগ্রাম, খুলনা, যশোর, সাতক্ষীরা, বাগেরহাট, ঝিনাইদহ,
-      মাগুরা, নড়াইল, কুষ্টিয়া, চুয়াডাঙ্গা, মেহেরপুর, বরিশাল, ভোলা, পটুয়াখালী, বরগুনা, ঝালকাঠি, পিরোজপুর,
-      ময়মনসিংহ, জামালপুর, শেরপুর, নেত্রকোনা
-    ]
-
-  - collection: city
-    label: জেলা
-    title: District
-    values: [
-      ঢাকা, গাজীপুর, নারায়ণগঞ্জ, নরসিংদী, মুন্সীগঞ্জ, মানিকগঞ্জ, মাদারীপুর, গোপালগঞ্জ, ফরিদপুর, রাজবাড়ী,
-      শরীয়তপুর, চট্টগ্রাম, কুমিল্লা, ফেনী, নোয়াখালী, লক্ষ্মীপুর, চাঁদপুর, ব্রাহ্মণবাড়িয়া, কক্সবাজার,
-      খাগড়াছড়ি, রাঙ্গামাটি, বান্দরবান, সিলেট, মৌলভীবাজার, হবিগঞ্জ, সুনামগঞ্জ, রাজশাহী, নাটোর, নওগাঁ,
-      চাঁপাইনবাবগঞ্জ, পাবনা, সিরাজগঞ্জ, বগুড়া, জয়পুরহাট, রংপুর, দিনাজপুর, ঠাকুরগাঁও, পঞ্চগড়, নীলফামারী,
-      লালমনিরহাট, কুড়িগ্রাম, গাইবান্ধা, খুলনা, যশোর, সাতক্ষীরা, বাগেরহাট, ঝিনাইদহ, মাগুরা, নড়াইল, কুষ্টিয়া,
-      চুয়াডাঙ্গা, মেহেরপুর, বরিশাল, ভোলা, পটুয়াখালী, বরগুনা, ঝালকাঠি, পিরোজপুর, ময়মনসিংহ, জামালপুর, শেরপুর,
-      নেত্রকোনা
-    ]
-
-  - collection: thana
-    label: থানা
-    title: Thana
-    values: [
-      উত্তরা পূর্ব, উত্তরা পশ্চিম, তুরাগ, দক্ষিণখান, উত্তরখান, খিলক্ষেত, বিমানবন্দর, গুলশান, বনানী, বাড্ডা,
-      রামপুরা, খিলগাঁও, মতিঝিল, পল্টন, শাহবাগ, ধানমন্ডি, কলাবাগান, নিউমার্কেট, হাজারীবাগ, লালবাগ, চকবাজার,
-      কোতোয়ালি, সূত্রাপুর, ওয়ারী, যাত্রাবাড়ী, ডেমরা, শ্যামপুর, মিরপুর, পল্লবী, রূপনগর, দারুস সালাম,
-      শাহ আলী, কাফরুল, শেরেবাংলা নগর, তেজগাঁও, তেজগাঁও শিল্পাঞ্চল, মোহাম্মদপুর, আদাবর, সাভার, আশুলিয়া,
-      ধামরাই, কেরানীগঞ্জ, দোহার, নবাবগঞ্জ, গাজীপুর সদর, কালিয়াকৈর, কাপাসিয়া, শ্রীপুর, কালীগঞ্জ, টঙ্গী পূর্ব,
-      টঙ্গী পশ্চিম, নারায়ণগঞ্জ সদর, ফতুল্লা, সিদ্ধিরগঞ্জ, বন্দর, রূপগঞ্জ, আড়াইহাজার, নরসিংদী সদর, পলাশ,
-      শিবপুর, মনোহরদী, বেলাব, রায়পুরা
-    ]
