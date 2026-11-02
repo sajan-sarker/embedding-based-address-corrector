@@ -224,3 +224,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Scratch vector store written by vector_db_ingestion.ipynb
+chroma_db_notebook/
