@@ -20,6 +20,9 @@ parts/
 sdist/
 var/
 wheels/
+chroma_db/
+frontend/node_modules/
+frontend/dist/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -51,6 +54,9 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+
+# Larger model file
+models/
 
 # Translations
 *.mo
@@ -218,3 +224,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Scratch vector store written by vector_db_ingestion.ipynb
+chroma_db_notebook/
